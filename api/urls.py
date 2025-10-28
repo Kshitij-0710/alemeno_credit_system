@@ -1,13 +1,12 @@
 # api/urls.py
-
-from rest_framework.routers import DefaultRouter
-from .viewsets.register_viewset import RegisterViewSet
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import RegisterViewSet, EligibilityView
 
 router = DefaultRouter()
 router.register(r'register', RegisterViewSet, basename='register')
 
 urlpatterns = [
     path('', include(router.urls)),
-    # Add other paths here later
+    path('check-eligibility/', EligibilityView.as_view(), name='check-eligibility'),
 ]
