@@ -19,7 +19,7 @@ class RegisterViewSet(viewsets.ViewSet):
             "customer_id": customer.customer_id, "name": f"{customer.first_name} {customer.last_name}",
             "age": customer.age, "monthly_income": customer.monthly_salary,
             "approved_limit": customer.approved_limit, "phone_number": customer.phone_number
-        }, status=status.HTTP_21_CREATED)
+        }, status=status.HTTP_201_CREATED)
 
 class EligibilityView(APIView):
     def post(self, request):
