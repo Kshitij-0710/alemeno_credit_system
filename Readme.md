@@ -1,14 +1,15 @@
 # Submission Round: Credit approval system
 
 ## Getting started
-
+```bash
 docker-compose up --build -d
-
+```
 Builds the images and starts the django, postgres, and redis containers.
 
 ## Data ingestion
-
+```bash
 docker-compose exec web python manage.py ingest_data
+```
 
 Queues a background task to ingest customer and loan data from the excel files.
 
