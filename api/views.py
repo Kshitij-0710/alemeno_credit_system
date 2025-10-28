@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Customer, Loan
 from dateutil.relativedelta import relativedelta
-from .serializers import RegisterSerializer, EligibilitySerializer, LoanDetailSerializer, ViewLoanSerializer
+from .serializers import RegisterSerializer, EligibilitySerializer, LoanDetailSerializer, ViewCustomerLoansSerializer, ViewLoanSerializer
 from .utils import calculate_credit_score
 
 class RegisterViewSet(viewsets.ViewSet):
@@ -122,4 +122,11 @@ class ViewLoanView(APIView):
     def get(self, request, loan_id, *args, **kwargs):
         loan = Loan.objects.get(loan_id=loan_id)
         serializer = ViewLoanSerializer(loan)
+        return Response(serializer.data)
+
+
+class ViewCustomerLoansView(APIView):
+    def get(self, request, customer_id, *args, **kwargs):
+        loans = Loan.objects.filter(customer__customer_id=customer_id)
+        serializer = ViewCustomerLoansSerializer(loans, many=True)
         return Response(serializer.data)
