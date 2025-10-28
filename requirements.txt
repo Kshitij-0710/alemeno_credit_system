@@ -5,3 +5,4 @@ celery
 redis
 pandas
 openpyxl
+drf-yasg
