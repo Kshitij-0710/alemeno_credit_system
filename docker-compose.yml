@@ -1,0 +1,45 @@
+services:
+  db:
+    image: postgres:14-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=alemeno_db
+      - POSTGRES_USER=alemeno_user
+      - POSTGRES_PASSWORD=alemeno_password
+
+  redis:
+    image: redis:7-alpine
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_DB=alemeno_db
+      - POSTGRES_USER=alemeno_user
+      - POSTGRES_PASSWORD=alemeno_password
+      - POSTGRES_HOST=db
+    depends_on:
+      - db
+      - redis
+
+  worker:
+    build: .
+    command: celery -A core worker -l info
+    volumes:
+      - .:/app
+    environment:
+      - POSTGRES_DB=alemeno_db
+      - POSTGRES_USER=alemeno_user
+      - POSTGRES_PASSWORD=alemeno_password
+      - POSTGRES_HOST=db
+    depends_on:
+      - db
+      - redis
+
+volumes:
+  postgres_data:
