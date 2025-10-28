@@ -1,28 +1,19 @@
-credit approval system
-a backend api for a credit approval system built with django and docker.
+# Submission Round: Credit approval system
 
-getting started
-docker-compose up --build
+## Getting started
+```bash
+docker-compose up --build -d
+```
+Builds the images and starts the django, postgres, and redis containers.
 
-builds the images and starts the django, postgres, and redis containers.
-
+## Data ingestion
+```bash
 docker-compose exec web python manage.py ingest_data
+```
 
-queues a background task to ingest customer and loan data from the excel files.
+Queues a background task to ingest customer and loan data from the excel files.
 
-api endpoints
-the api documentation is auto-generated and available via redoc.credit approval system
-a backend api for a credit approval system built with django and docker.
+## API endpoints
 
-getting started
-docker-compose up --build
-
-builds the images and starts the django, postgres, and redis containers.
-
-docker-compose exec web python manage.py ingest_data
-
-queues a background task to ingest customer and loan data from the excel files.
-
-api endpoints
-the api documentation is auto-generated and available via redoc on this url:
+The api documentation is auto-generated and available via redoc on this url:
 http://localhost:8000/docs/
